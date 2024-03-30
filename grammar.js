@@ -102,6 +102,7 @@ module.exports = grammar({
                     ),
                 ),
             ),
+        ),
 
         request: ($) =>
             prec.right(
@@ -119,6 +120,7 @@ module.exports = grammar({
                             $.xml_body,
                             $.json_body,
                             $.graphql_body,
+                            $.params_body,
                         ),
                     ),
                 ),
@@ -211,6 +213,15 @@ module.exports = grammar({
         json_body: ($) => seq(choice(/\{\n/, /\[\n/), repeat1($._line), choice(/\}\n/, /\]\n/), optional(/\n/)),
 
         // the final optional is for improving readability just in case
+        params_body: ($) =>
+            seq(
+              "params[",
+              repeat1($._line),
+              /]\n/,
+              optional(/\n/),
+            ),
+
+
         graphql_body: ($) =>
             seq(
                 "query",
