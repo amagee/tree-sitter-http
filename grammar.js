@@ -250,7 +250,7 @@ module.exports = grammar({
 
         const_spec: (_) => /[A-Z][A-Z\\d_]+/,
         identifier: (_) => /[A-Za-z_.\$\d\u00A1-\uFFFF-]+/,
-        param: (_) => /[A-Za-z_.\$\d\u00A1-\uFFFF-\t\v ]+/,
+        param: (_) => /[A-Za-z_.\$\d\u00A1-\uFFFF-\t\v% ]+/,
         number: (_) => /[0-9]+/,
         string: (_) => /"[^"]*"/,
         boolean: (_) => choice("true", "false"),
