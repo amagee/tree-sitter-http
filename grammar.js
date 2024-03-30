@@ -34,7 +34,7 @@ module.exports = grammar({
                 choice(
                     "/",
                     seq("/", $.identifier, optional("/")),
-                    seq("/", $.variable, optional("/")),
+                    $.variable,
                 ),
             ),
         scheme: (_) =>
@@ -81,7 +81,7 @@ module.exports = grammar({
         authority: ($) => seq(optional($.pair), "@"),
         http_version: (_) => seq("HTTP/", /[\d\.]+/),
 
-        target_url: ($) =>
+        target_url: ($) => prec(2,
             choice(
                 seq($.path, repeat($.query_param)),
                 seq(
